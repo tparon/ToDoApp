@@ -2,37 +2,32 @@ function onSubmit(event) {
     event.preventDefault()
     const task = document.getElementById("text-input")
     const date = document.getElementById("date-input")
-    create(task.value, date.value)
+
+    if (task.value == "") {
+        window.alert("Feladat nincs megadva!")
+    } else create(task.value, date.value)
 
     task.value = ""
+    date.value = ""
 }
 
 let myDiv = []
 let myButton = []
 
 function create(text, date) {
-    const container = document.getElementById("container")
     const divElem = document.createElement("div")
     divElem.innerText = date + ": " + text
     myDiv.push(divElem)
 
-
-
-    const buttonElem = document.createElement("button")
-    buttonElem.innerText = "Delete"
-    myButton.push(buttonElem)
-
-
-
-    console.log(myDiv)
-    console.log(myButton)
-
-    container.textContent = ""
+    const divCont = document.getElementById("myDiv")
+    const btn = document.createElement("button")
+    btn.innerHTML = "Delete"
+    myButton.push(btn)
 
     for (let i = 0; i < myDiv.length; i++) {
         if (myDiv[i] != undefined) {
-            document.body.appendChild(myDiv[i])
-            document.body.appendChild(myButton[i])
+            divCont.appendChild(myDiv[i])
+            divCont.appendChild(myButton[i])
         }
     }
 
@@ -43,13 +38,13 @@ function create(text, date) {
 function deleteLine() {
     for (let i = 0; i < myButton.length; i++) {
         myButton[i].onclick = function () {
-            for( let i = 0; i < myDiv.length; i++){
-                if ( myDiv[i] != undefined) {
-                    myDiv.splice(i, 1)
-                    myButton.splice(i, 1)
-                    myDiv[i].remove()
-                }
-            }
+            const divCont = document.getElementById("myDiv")
+            divCont.removeChild(myDiv[i])
+            divCont.removeChild(myButton[i])
+
+            myDiv.splice(i, 1)
+            myButton.splice(i, 1)
+            console.log(divCont)
         }
     }
 
@@ -66,5 +61,5 @@ function messageHandler(message) {
 
     timeeout = setTimeout(() => {
         succesMessage.innerText = ""
-    }, 1000)
+    }, 2000)
 }
