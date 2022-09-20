@@ -3,23 +3,31 @@ function onSubmit(event) {
     const task = document.getElementById("text-input")
     const date = document.getElementById("date-input")
     create(task.value, date.value)
+
+    task.value = ""
 }
 
 let myDiv = []
 let myButton = []
 
 function create(text, date) {
+    const container = document.getElementById("container")
     const divElem = document.createElement("div")
     divElem.innerText = date + ": " + text
     myDiv.push(divElem)
+
+
 
     const buttonElem = document.createElement("button")
     buttonElem.innerText = "Delete"
     myButton.push(buttonElem)
 
 
+
     console.log(myDiv)
     console.log(myButton)
+
+    container.textContent = ""
 
     for (let i = 0; i < myDiv.length; i++) {
         if (myDiv[i] != undefined) {
